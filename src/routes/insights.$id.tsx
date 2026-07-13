@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { getDataset } from "@/lib/storage";
+import { LoadingState } from "@/components/loading-state";
+import { useDataset } from "@/hooks/use-dataset";
 import { summarize } from "@/lib/dataset";
 import { generateInsights } from "@/lib/insights";
 import { useMemo } from "react";

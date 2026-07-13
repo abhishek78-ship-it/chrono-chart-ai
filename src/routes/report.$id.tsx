@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { getDataset } from "@/lib/storage";
+import { LoadingState } from "@/components/loading-state";
+import { useDataset } from "@/hooks/use-dataset";
 import { summarize } from "@/lib/dataset";
 import { generateInsights } from "@/lib/insights";
 import { exportPdfReport, exportSummaryCsv } from "@/lib/exporters";
@@ -34,12 +35,16 @@ function NotFoundReport() {
 
 function ReportDetail() {
   const params = Route.useParams();
-  const dataset = getDataset(params.id);
-  if (!dataset) return <NotFoundReport />;
-  const { summary, insights } = useMemo(() => {
+  const { dataset, loading } = useDataset(params.id);
+  const analysis = useMemo(() => {
+    if (!dataset) return null;
     const s = summarize(dataset);
     return { summary: s, insights: generateInsights(dataset, s) };
   }, [dataset]);
+
+  if (loading) return <LoadingState label="Preparing report…" />;
+  if (!dataset || !analysis) return <NotFoundReport />;
+  const { summary, insights } = analysis;
 
   const download = () => {
     try {
