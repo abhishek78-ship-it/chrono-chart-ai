@@ -24,7 +24,6 @@ export const Route = createFileRoute("/insights/$id")({
     meta: [{ title: `Insights — ${params.id.slice(0, 8)} — AI Dataset Detective` }],
   }),
   component: InsightsDetail,
-  notFoundComponent: NotFoundInsights,
 });
 
 function NotFoundInsights() {
