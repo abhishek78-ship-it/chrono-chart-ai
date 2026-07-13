@@ -136,10 +136,10 @@ export function ScatterPlot({
     <ResponsiveContainer width="100%" height={260}>
       <ScatterChart>
         <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
-        <XAxis dataKey="x" name={x} stroke="var(--muted-foreground)" fontSize={10} />
-        <YAxis dataKey="y" name={y} stroke="var(--muted-foreground)" fontSize={10} />
+        <XAxis type="number" dataKey="x" name={x} stroke="var(--muted-foreground)" fontSize={10} />
+        <YAxis type="number" dataKey="y" name={y} stroke="var(--muted-foreground)" fontSize={10} />
         <Tooltip contentStyle={tooltipStyle} cursor={{ strokeDasharray: "3 3" }} />
-        <Scatter data={data} fill="var(--chart-1)" fillOpacity={0.6} />
+        <Scatter data={data} fill="var(--chart-1)" fillOpacity={0.7} />
       </ScatterChart>
     </ResponsiveContainer>
   );
