@@ -45,12 +45,14 @@ function NotFoundInsights() {
 
 function InsightsDetail() {
   const params = Route.useParams();
-  const dataset = getDataset(params.id);
-  if (!dataset) return <NotFoundInsights />;
-  const { insights } = useMemo(() => {
-    const s = summarize(dataset);
-    return { insights: generateInsights(dataset, s) };
+  const { dataset, loading } = useDataset(params.id);
+  const insights = useMemo(() => {
+    if (!dataset) return null;
+    return generateInsights(dataset, summarize(dataset));
   }, [dataset]);
+
+  if (loading) return <LoadingState label="Generating AI insights…" />;
+  if (!dataset || !insights) return <NotFoundInsights />;
 
   return (
     <AppShell>
