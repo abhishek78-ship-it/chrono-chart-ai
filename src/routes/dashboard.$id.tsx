@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { getDataset } from "@/lib/storage";
+import { LoadingState } from "@/components/loading-state";
+import { useDataset } from "@/hooks/use-dataset";
 import { summarize, formatBytes, formatNumber } from "@/lib/dataset";
 import { useMemo, useState } from "react";
 import {
@@ -93,28 +94,6 @@ function DashboardDetail() {
     p.name.toLowerCase().includes(columnQuery.trim().toLowerCase()),
   );
 
-  const corrMatrix = useMemo(() => {
-    const cols = summary.numericCols;
-    const map: Record<string, Record<string, number>> = {};
-    for (const c of cols) map[c] = {};
-    for (const c of cols) map[c][c] = 1;
-    for (const { a, b, r } of summary.correlations) {
-      map[a][b] = r;
-      map[b][a] = r;
-    }
-    return cols.map((c) => cols.map((c2) => map[c][c2] ?? 0));
-  }, [summary]);
-
-  const scatterPair = useMemo(() => {
-    if (summary.correlations.length === 0) return null;
-    const top = summary.correlations[0];
-    return { x: top.a, y: top.b, r: top.r };
-  }, [summary]);
-
-  const trendPair = useMemo(() => {
-    if (summary.datetimeCols.length === 0 || summary.numericCols.length === 0) return null;
-    return { x: summary.datetimeCols[0], y: summary.numericCols[0] };
-  }, [summary]);
 
   return (
     <AppShell>
