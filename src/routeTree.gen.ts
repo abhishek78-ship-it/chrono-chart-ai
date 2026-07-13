@@ -9,38 +9,160 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UploadRouteImport } from './routes/upload'
+import { Route as DatasetsRouteImport } from './routes/datasets'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportIndexRouteImport } from './routes/report.index'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as ReportIdRouteImport } from './routes/report.$id'
+import { Route as InsightsIdRouteImport } from './routes/insights.$id'
+import { Route as DashboardIdRouteImport } from './routes/dashboard.$id'
 
+const UploadRoute = UploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatasetsRoute = DatasetsRouteImport.update({
+  id: '/datasets',
+  path: '/datasets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportIndexRoute = ReportIndexRouteImport.update({
+  id: '/report/',
+  path: '/report/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportIdRoute = ReportIdRouteImport.update({
+  id: '/report/$id',
+  path: '/report/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsIdRoute = InsightsIdRouteImport.update({
+  id: '/insights/$id',
+  path: '/insights/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIdRoute = DashboardIdRouteImport.update({
+  id: '/dashboard/$id',
+  path: '/dashboard/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/datasets': typeof DatasetsRoute
+  '/upload': typeof UploadRoute
+  '/dashboard/$id': typeof DashboardIdRoute
+  '/insights/$id': typeof InsightsIdRoute
+  '/report/$id': typeof ReportIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/insights/': typeof InsightsIndexRoute
+  '/report/': typeof ReportIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/datasets': typeof DatasetsRoute
+  '/upload': typeof UploadRoute
+  '/dashboard/$id': typeof DashboardIdRoute
+  '/insights/$id': typeof InsightsIdRoute
+  '/report/$id': typeof ReportIdRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/insights': typeof InsightsIndexRoute
+  '/report': typeof ReportIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/datasets': typeof DatasetsRoute
+  '/upload': typeof UploadRoute
+  '/dashboard/$id': typeof DashboardIdRoute
+  '/insights/$id': typeof InsightsIdRoute
+  '/report/$id': typeof ReportIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/insights/': typeof InsightsIndexRoute
+  '/report/': typeof ReportIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/datasets'
+    | '/upload'
+    | '/dashboard/$id'
+    | '/insights/$id'
+    | '/report/$id'
+    | '/dashboard/'
+    | '/insights/'
+    | '/report/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/datasets'
+    | '/upload'
+    | '/dashboard/$id'
+    | '/insights/$id'
+    | '/report/$id'
+    | '/dashboard'
+    | '/insights'
+    | '/report'
+  id:
+    | '__root__'
+    | '/'
+    | '/datasets'
+    | '/upload'
+    | '/dashboard/$id'
+    | '/insights/$id'
+    | '/report/$id'
+    | '/dashboard/'
+    | '/insights/'
+    | '/report/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DatasetsRoute: typeof DatasetsRoute
+  UploadRoute: typeof UploadRoute
+  DashboardIdRoute: typeof DashboardIdRoute
+  InsightsIdRoute: typeof InsightsIdRoute
+  ReportIdRoute: typeof ReportIdRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
+  ReportIndexRoute: typeof ReportIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datasets': {
+      id: '/datasets'
+      path: '/datasets'
+      fullPath: '/datasets'
+      preLoaderRoute: typeof DatasetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +170,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/report/': {
+      id: '/report/'
+      path: '/report'
+      fullPath: '/report/'
+      preLoaderRoute: typeof ReportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report/$id': {
+      id: '/report/$id'
+      path: '/report/$id'
+      fullPath: '/report/$id'
+      preLoaderRoute: typeof ReportIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$id': {
+      id: '/insights/$id'
+      path: '/insights/$id'
+      fullPath: '/insights/$id'
+      preLoaderRoute: typeof InsightsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/$id': {
+      id: '/dashboard/$id'
+      path: '/dashboard/$id'
+      fullPath: '/dashboard/$id'
+      preLoaderRoute: typeof DashboardIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DatasetsRoute: DatasetsRoute,
+  UploadRoute: UploadRoute,
+  DashboardIdRoute: DashboardIdRoute,
+  InsightsIdRoute: InsightsIdRoute,
+  ReportIdRoute: ReportIdRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
+  ReportIndexRoute: ReportIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
