@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { getDataset } from "@/lib/storage";
 import { summarize } from "@/lib/dataset";
@@ -23,11 +23,6 @@ export const Route = createFileRoute("/insights/$id")({
   head: ({ params }) => ({
     meta: [{ title: `Insights — ${params.id.slice(0, 8)} — AI Dataset Detective` }],
   }),
-  loader: ({ params }) => {
-    const ds = getDataset(params.id);
-    if (!ds) throw notFound();
-    return { datasetId: ds.id };
-  },
   component: InsightsDetail,
   notFoundComponent: NotFoundInsights,
 });
