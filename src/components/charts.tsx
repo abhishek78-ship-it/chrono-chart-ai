@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import {
   BarChart,
   Bar,
@@ -209,17 +209,16 @@ export function CorrelationHeatmap({
           </div>
         ))}
         {columns.map((row, i) => (
-          <>
+          <Fragment key={row}>
             <div
-              key={`h-${row}`}
               className="truncate pr-2 text-right text-[11px] font-medium text-muted-foreground"
               title={row}
             >
               {row}
             </div>
-            {columns.map((_, j) => (
+            {columns.map((c2, j) => (
               <div
-                key={`${i}-${j}`}
+                key={c2}
                 className="grid h-10 place-items-center rounded-md text-[10px] font-semibold text-foreground"
                 style={{ background: cell(matrix[i][j]) }}
                 title={`r = ${matrix[i][j].toFixed(3)}`}
@@ -227,7 +226,7 @@ export function CorrelationHeatmap({
                 {matrix[i][j].toFixed(2)}
               </div>
             ))}
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
