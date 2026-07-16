@@ -27,6 +27,8 @@ import {
   TrendLine,
 } from "@/components/charts";
 import { toast } from "sonner";
+import { NumpyStatsSection } from "@/components/numpy-stats";
+import { MatplotlibChartsSection } from "@/components/matplotlib-charts";
 import { exportSummaryCsv } from "@/lib/exporters";
 
 export const Route = createFileRoute("/dashboard/$id")({
@@ -288,6 +290,9 @@ function DashboardDetail() {
           </table>
         </div>
       </section>
+
+      <NumpyStatsSection dataset={dataset} numericCols={summary.numericCols} />
+      <MatplotlibChartsSection dataset={dataset} summary={summary} />
     </AppShell>
   );
 }
