@@ -290,6 +290,9 @@ function DashboardDetail() {
           </table>
         </div>
       </section>
+
+      <NumpyStatsSection dataset={dataset} numericCols={summary.numericCols} />
+      <MatplotlibChartsSection dataset={dataset} summary={summary} />
     </AppShell>
   );
 }
