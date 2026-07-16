@@ -27,6 +27,8 @@ import {
   TrendLine,
 } from "@/components/charts";
 import { toast } from "sonner";
+import { NumpyStatsSection } from "@/components/numpy-stats";
+import { MatplotlibChartsSection } from "@/components/matplotlib-charts";
 import { exportSummaryCsv } from "@/lib/exporters";
 
 export const Route = createFileRoute("/dashboard/$id")({
